@@ -1,0 +1,60 @@
+def int safediv(const int a, const int b){  // safediv promises not to change the values referenced by a and b
+  if b == 0 then
+    raise divisionByZero;
+  else
+    return a / b;
+  fi;
+};
+
+def int one(){
+  return "something wrong";
+};
+
+def int identity(const int x){
+  return x;
+};
+
+def int decrement(int x){
+  int y = identity(x) - 1;
+  return 0;
+};
+
+main{
+  int x = 0; // the original x
+  int y = 0;
+  int i = 0;
+  int sum = 0;
+  def int increment_x(){
+    x = x+1;
+    return x;
+  };
+  
+  def int increment_i(){
+    int x = i;  // x is shadowed
+    int x_before_call = x;
+    increment_x();
+    if x_before_call != x then
+      print "error! function increment_x has variable x bound to the shadowed x, and not to the original x";
+    else
+      print "no error! static binding works";
+    fi;
+    x = x+1;
+    i = x;
+  };
+  
+  x = 20000;
+  y = 30;
+  i = 0;
+  sum = 0;
+  while i < 100 do
+    try{
+        sum = sum + safediv(ref x, ref y);
+        increment_i();
+        x = x - one();
+        decrement(ref y);
+      };
+    except divisionByZero{
+      break ;
+    };
+  print sum;
+};

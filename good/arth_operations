@@ -1,0 +1,119 @@
+/* this program simulates some numerical computations, storing 
+   real numbers as numerator/denominator pairs. Addition,
+   subtraction, multiplication and division of reals is implemented,
+   with mechanisms for simplifying fractions and rounding to
+   n decimal places (otherwise the sizes of numerators/denominators
+   for precise computations could quickly spiral out of control).
+*/
+def int gcf(const int xarg, const int yarg){
+  int x = xarg;
+  int y = yarg;
+  while x != y do {
+    if x < y then
+      y = y - x;
+    else
+      x = x - y;
+    fi;
+  };
+  return x;
+};
+
+def int lcm(const int x, const int y){
+  int gcf = gcf(x, y);
+  return x * y / gcf;
+};
+
+def int simplify(int n, int d){
+  int gcf = gcf(n, d);
+  n = n / gcf;
+  d = d / gcf;
+  return 0;
+};
+
+def int add(const int n1, const int d1, const int n2, const int d2, int n_res, int d_res){
+  d_res = lcm(d1, d2);
+  n_res = n1 * (d_res / d1) + n2 * (d_res / d2);
+  simplify(ref n_res, ref d_res);
+  return 0;
+};
+
+def int sub(const int n1, const int d1, const int n2, const int d2, int n_res, int d_res){
+  d_res = lcm(d1, d2);
+  n_res = n1 * (d_res / d1) - n2 * (d_res / d2);
+  simplify(ref n_res, ref d_res);
+  return 0;
+};
+
+def int print_out(const int n, const int d){
+  print n;
+  print "/";
+  print d;
+  print "\n";
+  return 0;
+};
+
+def int mul(const int n1, const int d1, const int n2, const int d2, int n_res, int d_res){
+  d_res = d1 * d2;
+  n_res = n1 * n2;
+  simplify(ref n_res, ref d_res);
+  return 0;
+};
+
+def int div(const int n1, const int d1, const int n2, const int d2, int n_res, int d_res){
+  mul(n1, d1, d2, n2, ref n_res, ref d_res);
+  return 0;
+};
+
+def int power_of_ten(const int exp){
+  if exp <= 0 then return 1; fi;
+  return 10 * power_of_ten(exp-1);
+};
+
+def int round(const int decimal_places, const int n1, const int d1, int n_res, int d_res){
+  d_res = power_of_ten(decimal_places);
+  n_res = n1 * power_of_ten(decimal_places) / d1;
+  return 0;
+};
+
+def int mod(const int a, const int b){
+  return a - (a/b)*b;
+};
+
+def int print_rounded(const int nominator, const int decimal_places){
+  int pow = power_of_ten(decimal_places);
+  print nominator / pow;
+  print ".";
+  print mod(nominator, pow);
+  return 0;
+};
+
+def int approximate_x_squared_derivative(int x0){
+  int h = 250;  // actually that's 1/h, where h - like in standard formula for derivative
+  int x_plus_h_squared_num = 0;
+  int x_plus_h_squared_den = 0;
+  int x_squared_num = x0;
+  int x_squared_den = 1;
+  int c = 0;  // numerator of f(x+h)-f(x)
+  int d = 0;  // denominator thereof
+  int e = 0;  // numerator of (f(x+h)-f(x))/h
+  int f = 0;  // denominator thereof
+  int e_approx = 0;
+  int f_approx = 0;
+  int precision = 5;
+  add(x0, 1, 1, h, ref x_plus_h_squared_num, ref x_plus_h_squared_den);
+  mul(x_plus_h_squared_num, x_plus_h_squared_den,
+      x_plus_h_squared_num, x_plus_h_squared_den,
+      ref x_plus_h_squared_num, ref x_plus_h_squared_den);
+  mul(x_squared_num, x_squared_den,
+      x_squared_num, x_squared_den,
+      ref x_squared_num, ref x_squared_den);
+  sub(x_plus_h_squared_num, x_plus_h_squared_den, x_squared_num, x_squared_den, ref c, ref d);
+  div(c, d, 1, h, ref e, ref f);
+  round(precision, e, f, ref e_approx, ref f_approx);
+  print_rounded(e_approx, precision);
+  return 0;
+};
+
+main{
+  approximate_x_squared_derivative(60);
+};

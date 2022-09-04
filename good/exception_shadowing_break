@@ -1,0 +1,64 @@
+// test for break/continue in nested while instructions, and also for shadowing exception names.
+def bool assert_equal(int x, int y){
+  if x != y then {
+      print "expected ";
+      print x;
+      print ", got ";
+      print y;
+      print "\n";
+      return false;
+  };
+  else return true;
+  fi;
+};
+
+main{
+  int x = 0;
+  try{
+    while true do {
+      x = x + 1;
+      if x >= 679 then{
+        assert_equal(682, x);
+        raise xIncreased;
+      };
+      fi;
+      try{
+        while true do {
+          x = x + 10;
+          if x >= 675 then {
+            assert_equal(681, x);
+            raise xIncreased;
+          };
+          fi;
+          if x <= 15 then{
+            while true do {
+              x = x + 100;
+              if x >= 600 then{
+                break;
+              };
+              fi;
+              if x >= 500 then {
+                continue;
+              };
+              fi;
+            };
+            assert_equal(611, x);
+          };
+          fi;
+        };
+      };
+      except xIncreased{
+        assert_equal(681, x);
+        continue;
+      };
+      assert_equal(0, 1); // the program never gets here
+    };
+  };
+  except xIncreased{
+    // empty block
+  };
+  if assert_equal(682, x) then {
+    print "tutto bene";
+  };
+  fi;
+};

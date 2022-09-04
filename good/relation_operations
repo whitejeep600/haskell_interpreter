@@ -1,0 +1,35 @@
+def bool assert(bool a){
+  if not a then print "assertion failed :(\n"; fi;
+  return a;
+};
+
+def int test_relops(){
+  assert(2137 < 2138);
+  assert(not (2138 < 2137));
+  assert(2137 <= 2137);
+  assert(2137 <= 2138);
+  assert(not (2137 <= 2136));
+  assert(2138 > 2137);
+  assert(not (2137 > 2138));
+  assert(2137 >= 2137);
+  assert(2138 >= 2137);
+  assert(not (2137 >= 2138));
+  assert(2137 == 2137);
+  assert(not (2138 == 2137));
+  assert(not (2137 != 2137));
+  assert(2138 != 2137);
+  return 2137;
+};
+
+def int test_hanoi(int n, str a, str b, str c){
+  if n == 0 then return 0; fi;
+  test_hanoi(n-1, a, c, b);
+  print  a # b;
+  test_hanoi(n-1, c, b, a);
+  return 0;
+};
+
+main{
+  test_relops();
+  test_hanoi(5, "a", "b", "c");
+};

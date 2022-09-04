@@ -1,0 +1,75 @@
+-- inspired by the grammar provided for Latte
+
+-- program
+Prog. Program ::= [FunDecl] Main;
+
+-- declarations
+DMain. Main ::= "main" Block ;
+DFun. FunDecl ::= "def" Type Ident "(" [ArgDecl] ")" Block;
+DFunDecl. Decl ::= FunDecl ;
+DVarDecl. Decl ::= Type Ident "=" Exp ";" ;
+DConstVarDecl. Decl ::= "const" Type Ident "=" Exp ";" ;
+DArgDecl. ArgDecl ::= Type Ident ;
+DConstArgDecl. ArgDecl ::= "const" Type Ident ;
+separator ArgDecl "," ;
+
+-- instructions
+IBlock. Block ::= "{" [Decl] [Instr] "}" ";" ;
+IAss. Instr ::= Ident "=" Exp ";" ;
+IIf. Instr ::= "if" Exp "then" Instr Else "fi" ";" ;
+IElseEmpty. Else ::= "" ;
+IElse. Else ::= "else" Instr ;
+IWhile. Instr ::= "while" Exp "do" Instr ;
+IPrStr. Instr ::= "print" Exp ";" ;
+IRet. Instr ::= "return" Exp ";" ;
+IBreak. Instr ::= "break" ";" ;
+IRaise. Instr ::= "raise" Ident ";" ;
+IContinue. Instr ::= "continue" ";" ;
+ITryBlock. Instr ::= "try" Block "except" Ident [Ident] Block ;
+IBlockInstr. Instr ::= Block ;
+IExp. Instr ::= Exp ";" ;
+separator Instr "" ;
+
+-- expressions
+
+EOr. Exp ::= Exp1 "or" Exp ;
+EAnd. Exp1 ::= Exp2 "and" Exp1 ;
+
+EEq. Exp2 ::= Exp3 "==" Exp3 ;
+ENeq. Exp2 ::= Exp3 "!=" Exp3 ;
+ELeq. Exp2 ::= Exp3 "<=" Exp3 ;
+EGeq. Exp2 ::= Exp3 ">=" Exp3 ;
+ELess. Exp2 ::= Exp3 "<" Exp3 ;
+EGrt. Exp2 ::= Exp3 ">" Exp3 ;
+EPlus. Exp3 ::= Exp3 "+" Exp4 ;
+EMinus. Exp3 ::= Exp3 "-" Exp4 ;
+EConcat. Exp3 ::= Exp3 "#" Exp4 ;
+ETimes. Exp4 ::= Exp4 "*" Exp5 ;
+EDiv. Exp4 ::= Exp4 "/" Exp5 ;
+ENeg. Exp5 ::= "-" Integer ;
+ENot. Exp5 ::= "not" Exp6 ;
+EInt. Exp6 ::= Integer ;
+EBool. Exp6 ::= Bool ;
+EStr. Exp6 ::= String ;
+EIdent. Exp6 ::= Ident ;
+EFuncall. Exp6 ::= Ident "(" [Arg] ")" ;
+coercions  Exp 6 ;
+
+separator Arg "," ;
+AVal. Arg ::= Exp ;
+ARef. Arg ::= "ref" Ident ;
+
+separator Ident "," ;
+separator Decl "" ;
+separator FunDecl "" ;
+
+comment "//" ;
+comment "/*" "*/" ;
+
+
+TBool. Type ::= "bool" ;
+TInt. Type ::= "int" ;
+TStr. Type ::= "str" ;
+
+BTrue. Bool ::= "true" ;
+BFalse. Bool ::= "false" ;

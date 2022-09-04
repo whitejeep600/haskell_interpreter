@@ -1,0 +1,20 @@
+def int gcf(int x, int y){
+  while x != y do {
+    if x < y then
+      y = y - x;
+    else
+      x = x - y;
+    fi;
+  };
+  return x;
+};
+
+main{
+  int x = 2163;
+  int y = 420;
+  x = gcf(x, ref y);
+  print "greatest" # " common factor is ";
+  print x;
+  print ", while least common denominator is ";
+  print 2137*420/x;
+};

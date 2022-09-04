@@ -1,0 +1,32 @@
+def int modify(int x){
+  if (x < 100 or x+1 != 31) and ((x >= -121) or not false) and (2*1/(3+7) != 1500) then
+    x = x + 10;
+  else
+    x = x - 11;
+  fi;
+  return x;
+};
+
+def int dont_modify(const int x){
+  "don't do anything";
+  x = x+1;
+  return 0;
+};
+
+def int no_error(){
+  int x = 0;
+  modify(ref x);
+  return 0;
+};
+
+main{
+  const int x = 0;
+  int y = 0;
+  dont_modify(ref x);
+  dont_modify(ref y);
+  no_error();
+  // modify(ref x); // static typecheck fail
+  modify(x); // will not fail because this x does not get modified
+  dont_modify(3);
+  modify(3);
+};

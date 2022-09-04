@@ -1,0 +1,28 @@
+main{
+  int x = 0;
+  int dummy = 30;
+  def int nested1(){
+    int x = x + 1;
+    def int nested2(int x){
+      def int nested3(){
+        int y = x;
+        nested2(ref y);
+        return 0;
+      };
+      x = x + 1;
+      if x < 10 then{
+        nested3();
+      };
+      else{
+        if x != 31 then
+          print "static binding does not seem to work";
+        fi;
+        return 20;
+      };
+      fi;
+      return -1;
+    };
+    return nested2(dummy);
+  };
+  print nested1();
+};

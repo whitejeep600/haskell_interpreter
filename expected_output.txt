@@ -1,0 +1,37 @@
+syntax errors:
+program1: syntax error at end of file
+program2: syntax error at line 13, column 8 before `;'
+program3: syntax error at line 12, column 1 before `def'
+program4: syntax error at line 55, column 3 before `print'
+program5: syntax error at line 1, column 36 before `b'
+program6: syntax error at line 23, column 15 before `const'
+program7: syntax error at line 25, column 3 before `int'
+program8: syntax error at line 24, column 16 before `not'
+type errors:
+program1: wrong return type at line 9, col 10
+program2: non-arithmetic expression in arithmetic operation at line 4, col 15
+program3: wrong type of assigned value in variable declaration at line 13, col 11
+program4: unexpected return statement in main at line 20, col 10
+program5: wrong return type at line 10, col 10
+program6: no return statement at line 17, col 1
+program7: invalid comparison of different types at line 52, col 9
+program8: non-boolean expression in if condition at line 2, col 6
+program9: assignment to const variable at line 12, col 3
+program10: const reference passed as non-const argument at line 12, col 10
+program11: non-arithmetic expression in arithmetic operation at line 3, col 13
+program12: wrong type of argument passed to function at line 29, col 15
+program13: non-string expression in string operation at line 57, col 17
+program14: non-boolean expression in logic operation at line 44, col 34
+program15: function identifier not in scope at line 46, col 3
+program16: non-boolean expression in while condition at line 12, col 9
+runtime:
+program1: uncaught exception: "someUncaughtException"
+correct:
+simple: greatest common factor is 21, while least common denominator is 42740
+exceptions_static_binding: 80000
+const: 
+recursion: by the way, the decimal representation of the number 2137 is 2137
+exception_shadowing_break: tutto bene
+ref_passing: 20
+arth_operations: 120.400
+relation_operations: abacbcabcacbabacbcbacabcabacbcabcacbabcabcbacacbabacbcabcacbab

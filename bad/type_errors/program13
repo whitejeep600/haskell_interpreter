@@ -1,0 +1,58 @@
+def bool equal(const int x, const int y){
+  return 2* x == 2*y;
+};
+
+
+def bool abs_equal(const int x, const int y){
+  if x*x == y*y then return true; else return false; fi;
+};
+
+def int get_largest_power_of_10_smaller_than(const int x){
+  int y = 1;
+  while y < x do {
+    y = y * 10;
+  };
+  y = y / 10;
+  return y;
+};
+
+def int to_str(const int x){
+  int y = 0;
+  int first_digit = 0;
+  if x == 0 then return 0; fi;
+  if x == 1 then return 1; fi;
+  if x == 2 then return 2; fi;
+  if x == 3 then return 3; fi;
+  if x == 4 then return 4; fi;
+  if x == 5 then return 5; fi;
+  if x == 6 then return 6; fi;
+  if x == 7 then return 7; fi;
+  if x == 8 then return 8; fi;
+  if x == 9 then return 9; fi;
+  y = get_largest_power_of_10_smaller_than(x);
+  first_digit = x / y;
+  return to_str(first_digit) + to_str(x - first_digit * y);
+};
+
+main{
+  int x = 0;
+  int y = 0;
+  x = -100;
+  y = -100;
+  while x <= 100 do {
+    while y < 100 or y == 100 do {
+      if abs_equal(x, y) then
+        if not equal(x, y) then
+          if -1*x != y then
+            print to_str(x);
+          fi;
+        fi;
+      fi;
+      y = y+1;
+    };
+    x = x+1;
+  };
+  print "by the way, the decimal representation of the number ";
+  print 2137;
+  print "is " # to_str(2137);
+};
