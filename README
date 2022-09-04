@@ -6,5 +6,5 @@ The 'good' and 'bad' directories contain sample programs as described in the tas
 
 Language description is contained in the file antoni_maciag.pdf. In particular, the language's continuational semantics can be seen there. The solution in Haskell (file src/Denotations.hs) is strictly based on this semantics, and it can be seen that the code is strikingly similar to the denotations presented there. The typechecker module is contained in src/TypeChecker.hs.
 
-DISCLAIMER: the parts of the source code responsible for parsing have been automatically generated based on the 'grammar.cf' file, with the use of the BCNF generator. This is NOT my Haskell code!
+DISCLAIMER: the parts of the source code responsible for parsing have been automatically generated based on the 'grammar.cf' file, with the use of the BNFC generator. This is NOT my Haskell code!
 
